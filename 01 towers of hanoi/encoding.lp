@@ -24,7 +24,9 @@ blocked(D-1,P,T)	:- blocked(D,P,T), disk(D).
 %Diese Ausdrücke müssen falsch sein. (Sonst könnte man daraus false ableiten.)
 :- move(D,P,T), blocked(D-1,P,T).
 :- move(D,T), on(D,P,T-1), blocked(D,P,T).
+%Alle Disks müssen am Ende auf P sein. goal_on und moves ist klar. Das not vor on bewirkt, dass auch on wahr sein muss damit der gesamte Constraint nicht wahr ist.
 :- goal_on(D,P), not on(D,P,M), moves(M).
+%Analog zu oben. Um den Constraint zu false aus zu werten muss es nur ein on(D,P,T) geben. Besagt dass eine Disk zu einem Zeitpunkt nur auf einem Stab sein kann.
 :- { on(D,P,T) } != 1, disk(D), moves(M), T = 1..M.
 
 % Display
